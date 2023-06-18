@@ -7,6 +7,10 @@ import WorkboxWebpackPlugin from'workbox-webpack-plugin';
 
 export default {
   mode: process.env.NODE_ENV || 'development',
+   output: {
+    filename: 'main.js',
+    path: path.resolve(__dirname, './dist'),
+  },
   module: {
     rules: [
       {
