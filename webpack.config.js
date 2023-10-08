@@ -1,16 +1,14 @@
-// Generated using webpack-cli https://github.com/webpack/webpack-cli
-
-import path from 'path';
-import { fileURLToPath } from 'url';
-import HtmlWebpackPlugin from'html-webpack-plugin';
-import WorkboxWebpackPlugin from'workbox-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
   mode: process.env.NODE_ENV || 'development',
-   output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, './dist'),
+  entry: './src/index.js',
+  devServer: {
+    open: true,
+    host: 'localhost',
   },
+
   module: {
     rules: [
       {
@@ -42,6 +40,7 @@ export default {
     new HtmlWebpackPlugin({
       template: 'index.html',
     }),
+    new MiniCssExtractPlugin(),
   ],
   output: {
     clean: true,
