@@ -113,6 +113,7 @@ const handleFailedForm = (elements, state, i18nT) => {
   elements.input.focus();
   elements.feedback.classList.add('text-danger');
   elements.input.classList.add('is-invalid');
+  elements.feedback.textContent = i18nT(`errors.${state.form.error}`);
 }
 const handleCompleteForm= (elements, state, i18nT) => {
   elements.button.disabled = false
@@ -122,12 +123,14 @@ const handleCompleteForm= (elements, state, i18nT) => {
   elements.feedback.classList.remove('text-danger');
   elements.feedback.classList.add('text-success');
   elements.input.classList.remove('is-invalid');
+  elements.feedback.textContent = i18nT('success');
   renderFeeds(elements, state, i18nT);
   renderPosts(elements, state, i18nT);
 }
-const formLoaded = (elements) => {
-
-}
+const handleSendingForm = (elements) => {
+  elements.button.disabled = true;
+  elements.input.disabled = true;
+};
 
 const handleFormProcess = (elements, state, formProcess, i18nT) => {
   switch (formProcess) {
@@ -141,7 +144,7 @@ const handleFormProcess = (elements, state, formProcess, i18nT) => {
       handleCompleteForm(elements, state, i18nT);
       break;
     case 'failed':
-      handleFailedForm(elements);
+      handleFailedForm(elements, state, i18nT);
       break;
     default:
       break;
