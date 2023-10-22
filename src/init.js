@@ -108,7 +108,7 @@ const init = () => {
     .then((link)=> {
     watchedState.form.process = 'sending'
        const allOriginsURL = getAllOriginsURL(link);
-       return axios.get(allOriginsURL);
+       return axios.get(allOriginsURL,  { timeout: 5000 });
     }).then((response) => {
     const responseContent = response.data.contents;
             const { feed, posts } = parse(responseContent);
@@ -117,10 +117,13 @@ const init = () => {
             watchedState.form.process = 'complete';
             console.log(posts)
     })
-    .catch((er) => {
-    console.log(i18nT(`errors.${er.message}`))
-    watchedState.form.error = er.message;
-    watchedState.form.process = 'failed'
+    .catch((error) => {
+      if ((error.message === 'Network Error') || error.message === ('timeout of 5000ms exceeded')) {
+        watchedState.form.error = 'NetworkError';
+      } else {
+         watchedState.form.error = error.message;
+      }
+
     })
 
   })
