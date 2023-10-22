@@ -1,5 +1,4 @@
-
-  const renderFeeds = (elements, state, i18nT) => {
+const renderFeeds = (elements, state, i18nT) => {
   const { feeds } = elements;
   feeds.innerHTML = '';
 
@@ -69,7 +68,7 @@ const renderPosts = (elements, state, i18nT) => {
       'border-0',
       'border-end-0',
     );
-    
+
     const listItemLink = document.createElement('a');
     listItemLink.href = post.link;
     listItemLink.classList.add(state.uiState.visitedIds.includes(post.id) ? ('fw-normal', 'link-secondary') : 'fw-bold');
@@ -96,31 +95,31 @@ const renderPosts = (elements, state, i18nT) => {
   posts.append(card);
 };
 const renderModal = (elements, state, modalId) => {
-   const post = state.data.posts.find(({ id }) => id === modalId);
-  console.log(modalId)
+  const post = state.data.posts.find(({ id }) => id === modalId);
   const { title, description, link } = post;
 
   elements.modal.title.textContent = title;
   elements.modal.body.textContent = description;
   elements.modal.button.href = link;
 };
-  const handleFillingForm = (elements, state, i18nT) => {
+
+const handleFillingForm = (elements) => {
   elements.feedback.classList.remove('text-danger');
   elements.feedback.classList.remove('text-success');
   elements.input.classList.remove('is-invalid');
   elements.feedback.textContent = '';
 };
+
 const handleFailedForm = (elements, state, i18nT) => {
-  elements.button.disabled = false
+  elements.button.disabled = false;
   elements.input.disabled = false;
   elements.input.focus();
   elements.feedback.classList.add('text-danger');
   elements.input.classList.add('is-invalid');
-  console.log(state.form.error)
   elements.feedback.textContent = i18nT(`errors.${state.form.error}`);
 }
-const handleCompleteForm= (elements, state, i18nT) => {
-  elements.button.disabled = false
+const handleCompleteForm = (elements, state, i18nT) => {
+  elements.button.disabled = false;
   elements.input.disabled = false;
   elements.input.focus();
   elements.input.value = '';

@@ -21,15 +21,15 @@ const elements = {
     button: document.querySelector('.full-article'),
     footer: document.querySelector('.modal-footer'),
   },
-}
+};
 
 const getAllOriginsURL = (url) => {
   const allOriginsGetURL = new URL('https://allorigins.hexlet.app/get');
   allOriginsGetURL.searchParams.set('disableCache', 'true');
   allOriginsGetURL.searchParams.set('url', url);
   return allOriginsGetURL;
-
 };
+
 const validate = (url, links) => {
   const schema = yup
     .string()
@@ -54,9 +54,9 @@ const updateFeed = (state) => {
       const newPosts = posts.filter((post) => !oldLinks.includes(post.link));
       if (newPosts.length > 0) {
         state.data.posts = [...posts, ...state.data.posts];
-    }
-  });    
-});
+      }
+    });    
+  });
 
   Promise.all(promises).finally(() => {
     setTimeout(() => updateFeed(state), 5000);
@@ -75,69 +75,69 @@ const init = () => {
     })
     .then((i18nT) => {
       const state = {
-      form: {
-        process: 'filling',
-        error: null,
-        input: '',
-      },
-      data: {
-      feeds: [],
-      posts: [],
-      },
-      uiState: {
-        modalId: null,
-        visitedIds: [],
-      },
-    };
+        form: {
+          process: 'filling',
+          error: null,
+          input: '',
+        },
+        data: {
+          feeds: [],
+          posts: [],
+        },
+        uiState: {
+          modalId: null,
+          visitedIds: [],
+        },
+      };
       yup.setLocale({
         mixed: { notOneOf: 'existingFeed' },
         string: { url: 'invalidLink', required: 'emptyForm' },
       });
 
-    const watchedState = onChange(state, render(elements,state,i18nT));
+      const watchedState = onChange(state, render(elements, state, i18nT));
 
-    updateFeed(watchedState);
+      updateFeed(watchedState);
 
-    elements.form.addEventListener('input', (e) => {
-      e.preventDefault();
-      watchedState.form.state = 'filling';
-      watchedState.form.error = null;
-    });
-
-    elements.form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const formData = new FormData(elements.form);
-      const url = formData.get('url');
-      const links = watchedState.data.feeds.map(({link}) => link);
-      validate(url, links)
-      .then((link) => {
-        watchedState.form.process = 'sending';
-        const allOriginsURL = getAllOriginsURL(link);
-        return axios.get(allOriginsURL, { timeout: 5000});
-      }).then((response) => {
-        const responseContent = response.data.contents;
-        const { feed, posts } = parse(responseContent);
-        watchedState.data.feeds.push({ ...feed, id: _.uniqueId(),link: url });
-        watchedState.data.posts = [...posts, ...watchedState.data.posts];
-        watchedState.form.process = 'complete';
-      }).catch((error) => {
-        if ((error.message === 'Network Error') || error.message === ('timeout of 5000ms exceeded')) {
-          watchedState.form.error = 'NetworkError';
-        } else {
-           watchedState.form.error = error.message;
-        }
-        watchedState.form.process = 'failed';
+      elements.form.addEventListener('input', (e) => {
+        e.preventDefault();
+        watchedState.form.state = 'filling';
+        watchedState.form.error = null;
       });
-    });
 
-    elements.posts.addEventListener('click', (e) => {
-      const { id } = e.target.dataset;
-      if (id && !state.uiState.visitedIds.includes(id)) {
-        watchedState.uiState.visitedIds.push(id);
-      }
-    });
+      elements.form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(elements.form);
+        const url = formData.get('url');
+        const links = watchedState.data.feeds.map(({ link }) => link);
+        validate(url, links)
+          .then((link) => {
+            watchedState.form.process = 'sending';
+            const allOriginsURL = getAllOriginsURL(link);
+            return axios.get(allOriginsURL, { timeout: 5000 });
+          }).then((response) => {
+            const responseContent = response.data.contents;
+            const { feed, posts } = parse(responseContent);
+            watchedState.data.feeds.push({ ...feed, id: _.uniqueId(),link: url });
+            watchedState.data.posts = [...posts, ...watchedState.data.posts];
+            watchedState.form.process = 'complete';
+          }).catch((error) => {
+            if ((error.message === 'Network Error') || error.message === ('timeout of 5000ms exceeded')) {
+              watchedState.form.error = 'NetworkError';
+            } else {
+            watchedState.form.error = error.message;
+          }
+          watchedState.form.process = 'failed';
+        });
+      });
 
-    elements.modal.container.addEventListener('show.bs.modal', (e) => {
+      elements.posts.addEventListener('click', (e) => {
+        const { id } = e.target.dataset;
+        if (id && !state.uiState.visitedIds.includes(id)) {
+          watchedState.uiState.visitedIds.push(id);
+        }
+      });
+
+      elements.modal.container.addEventListener('show.bs.modal', (e) => {
         const { id } = e.relatedTarget.dataset;
         if (!state.uiState.visitedIds.includes(id)) {
           watchedState.uiState.visitedIds.push(id);
@@ -147,4 +147,4 @@ const init = () => {
     });
 };
 
-    export default init;
+export default init;
