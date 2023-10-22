@@ -40,6 +40,11 @@ const validate = (url, links) => {
   return schema.validate(url);
 };
 
+const addNewPosts = (state, posts) => {
+  const newPostsWithId = posts.map((post) => ({ ...post, id: uniqueId() }));
+  state.content.posts = [...newPostsWithId, ...state.content.posts];
+};
+
 const updateFeed = (state) => {
   const { feeds } = state.data;
   const oldPosts = state.data.posts;
@@ -53,7 +58,7 @@ const updateFeed = (state) => {
       const oldLinks = oldPosts.map((post) => post.link);
       const newPosts = posts.filter((post) => !oldLinks.includes(post.link));
       if (newPosts.length > 0) {
-        state.data.posts = [...posts, ...state.data.posts];
+        addNewPosts(state, newPosts);
       }
     });    
   });
@@ -117,8 +122,9 @@ const init = () => {
           }).then((response) => {
             const responseContent = response.data.contents;
             const { feed, posts } = parse(responseContent);
+            const newPostsWithId = posts.map((post) => ({ ...post, id: uniqueId() }));
             watchedState.data.feeds.push({ ...feed, id: _.uniqueId(),link: url });
-            watchedState.data.posts = [...posts, ...watchedState.data.posts];
+            addNewPosts(watchedState, newPosts);
             watchedState.form.process = 'complete';
           }).catch((error) => {
             if ((error.message === 'Network Error') || error.message === ('timeout of 5000ms exceeded')) {
