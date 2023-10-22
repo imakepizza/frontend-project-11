@@ -12,5 +12,10 @@ export default {
     preview: 'Просмотр',
     feeds: 'Фиды',
     posts: 'Посты',
+    modal: {
+      primary: 'Читать полностью',
+      secondary: 'Закрыть',
+    },
   },
+  
 };
