@@ -94,6 +94,7 @@ const renderPosts = (elements, state, i18nT) => {
 
   posts.append(card);
 };
+
 const renderModal = (elements, state, modalId) => {
   const post = state.data.posts.find(({ id }) => id === modalId);
   const { title, description, link } = post;
@@ -117,7 +118,8 @@ const handleFailedForm = (elements, state, i18nT) => {
   elements.feedback.classList.add('text-danger');
   elements.input.classList.add('is-invalid');
   elements.feedback.textContent = i18nT(`errors.${state.form.error.replace(' ', '')}`);
-}
+};
+
 const handleCompleteForm = (elements, state, i18nT) => {
   elements.button.disabled = false;
   elements.input.disabled = false;
@@ -129,7 +131,8 @@ const handleCompleteForm = (elements, state, i18nT) => {
   elements.feedback.textContent = i18nT('success');
   renderFeeds(elements, state, i18nT);
   renderPosts(elements, state, i18nT);
-}
+};
+
 const handleSendingForm = (elements) => {
   elements.button.disabled = true;
   elements.input.disabled = true;

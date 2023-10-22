@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 const parse = (content) => {
   const domParser = new DOMParser();
   const parsedDOM = domParser.parseFromString(content, 'text/xml');

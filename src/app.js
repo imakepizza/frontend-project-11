@@ -60,7 +60,7 @@ const updateFeed = (state) => {
       if (newPosts.length > 0) {
         addNewPosts(state, newPosts);
       }
-    });    
+    });   
   });
 
   Promise.all(promises).finally(() => {
@@ -122,17 +122,17 @@ const init = () => {
           }).then((response) => {
             const responseContent = response.data.contents;
             const { feed, posts } = parse(responseContent);
-            watchedState.data.feeds.push({ ...feed, id: _.uniqueId(),link: url });
+            watchedState.data.feeds.push({ ...feed, id: _.uniqueId(), link: url });
             addNewPosts(watchedState, posts);
             watchedState.form.process = 'complete';
           }).catch((error) => {
             if ((error.message === 'Network Error') || error.message === ('timeout of 5000ms exceeded')) {
               watchedState.form.error = 'NetworkError';
             } else {
-            watchedState.form.error = error.message;
-          }
-          watchedState.form.process = 'failed';
-        });
+              watchedState.form.error = error.message;
+            }
+            watchedState.form.process = 'failed';
+          });
       });
 
       elements.posts.addEventListener('click', (e) => {
