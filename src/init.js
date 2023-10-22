@@ -103,7 +103,8 @@ const init = () => {
     e.preventDefault()
     const formData = new FormData(elements.form);
     const url = formData.get('url');
-    validate(url, watchedState.data.feeds)
+    const links = watchedState.data.feeds.map(({link})=> link)
+    validate(url, links)
     .then((link)=> {
     watchedState.form.process = 'sending'
        const allOriginsURL = getAllOriginsURL(link);
