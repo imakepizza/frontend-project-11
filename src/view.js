@@ -116,7 +116,7 @@ const handleFailedForm = (elements, state, i18nT) => {
   elements.input.focus();
   elements.feedback.classList.add('text-danger');
   elements.input.classList.add('is-invalid');
-  elements.feedback.textContent = i18nT(`errors.${state.form.error}`);
+  elements.feedback.textContent = i18nT(`errors.${state.form.error.replace(' ', '')}`);
 }
 const handleCompleteForm = (elements, state, i18nT) => {
   elements.button.disabled = false;

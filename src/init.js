@@ -41,8 +41,8 @@ const validate = (url, links) => {
 };
 
 const addNewPosts = (state, posts) => {
-  const newPostsWithId = posts.map((post) => ({ ...post, id: uniqueId() }));
-  state.content.posts = [...newPostsWithId, ...state.content.posts];
+  const newPostsWithId = posts.map((post) => ({ ...post, id: _.uniqueId() }));
+  state.data.posts = [...newPostsWithId, ...state.data.posts];
 };
 
 const updateFeed = (state) => {
@@ -122,9 +122,8 @@ const init = () => {
           }).then((response) => {
             const responseContent = response.data.contents;
             const { feed, posts } = parse(responseContent);
-            const newPostsWithId = posts.map((post) => ({ ...post, id: uniqueId() }));
             watchedState.data.feeds.push({ ...feed, id: _.uniqueId(),link: url });
-            addNewPosts(watchedState, newPosts);
+            addNewPosts(watchedState, posts);
             watchedState.form.process = 'complete';
           }).catch((error) => {
             if ((error.message === 'Network Error') || error.message === ('timeout of 5000ms exceeded')) {

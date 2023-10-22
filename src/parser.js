@@ -19,7 +19,8 @@ const parse = (content) => {
     const postDescription = item.querySelector('description').textContent;
     return {
       link: postLink,
-      title, postDescription
+      title: postTitle,
+      description: postDescription,
     };
   });
 
