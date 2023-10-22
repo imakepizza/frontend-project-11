@@ -108,7 +108,7 @@ const init = () => {
     .then((link)=> {
     watchedState.form.process = 'sending'
        const allOriginsURL = getAllOriginsURL(link);
-       return axios.get(allOriginsURL,  { timeout: 5000 });
+       return axios.get(allOriginsURL, { timeout: 5000});
     }).then((response) => {
     const responseContent = response.data.contents;
             const { feed, posts } = parse(responseContent);
@@ -123,6 +123,7 @@ const init = () => {
       } else {
          watchedState.form.error = error.message;
       }
+      watchedState.form.process = 'failed'
 
     })
 

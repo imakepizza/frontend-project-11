@@ -113,6 +113,7 @@ const handleFailedForm = (elements, state, i18nT) => {
   elements.input.focus();
   elements.feedback.classList.add('text-danger');
   elements.input.classList.add('is-invalid');
+  console.log(state.form.error)
   elements.feedback.textContent = i18nT(`errors.${state.form.error}`);
 }
 const handleCompleteForm= (elements, state, i18nT) => {
