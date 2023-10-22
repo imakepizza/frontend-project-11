@@ -118,7 +118,7 @@ const init = () => {
           .then((link) => {
             watchedState.form.process = 'sending';
             const allOriginsURL = getAllOriginsURL(link);
-            return axios.get(allOriginsURL);
+            return axios.get(allOriginsURL, { timeout: 5000 });
           }).then((response) => {
             const responseContent = response.data.contents;
             const { feed, posts } = parse(responseContent);
