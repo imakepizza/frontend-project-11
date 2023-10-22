@@ -60,7 +60,7 @@ const updateFeed = (state) => {
       if (newPosts.length > 0) {
         addNewPosts(state, newPosts);
       }
-    });   
+    });
   });
 
   Promise.all(promises).finally(() => {
