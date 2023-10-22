@@ -69,7 +69,8 @@ const renderPosts = (elements, state, i18nT) => {
       'border-0',
       'border-end-0',
     );
-      const listItemLink = document.createElement('a');
+    
+    const listItemLink = document.createElement('a');
     listItemLink.href = post.link;
     listItemLink.classList.add(state.uiState.visitedIds.includes(post.id) ? ('fw-normal', 'link-secondary') : 'fw-bold');
     listItemLink.setAttribute('data-id', post.id);
@@ -94,9 +95,11 @@ const renderPosts = (elements, state, i18nT) => {
 
   posts.append(card);
 };
-const renderModal = (elements, state, modalId, i18nT) => {
+const renderModal = (elements, state, modalId) => {
    const post = state.data.posts.find(({ id }) => id === modalId);
+  console.log(modalId)
   const { title, description, link } = post;
+
   elements.modal.title.textContent = title;
   elements.modal.body.textContent = description;
   elements.modal.button.href = link;
@@ -162,7 +165,7 @@ const render = (elements, state, i18nT) => (path, value) => {
       renderPosts(elements, state, i18nT);
       break;
     case 'uiState.modalId':
-      renderModal(elements, state, value, i18nT);
+      renderModal(elements, state, value);
       break;
     default:
       break;

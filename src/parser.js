@@ -14,10 +14,11 @@ const parse = (content) => {
   const itemsArray = Array.from(items);
 
   const posts = itemsArray.map((item) => {
+    const id = _.uniqueId();
     const link = item.querySelector('link').textContent;
     const title = item.querySelector('title').textContent;
     const description = item.querySelector('description').textContent;
-    return { link, title, description };
+    return { id, link, title, description };
   });
 
   return { feed, posts };

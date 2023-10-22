@@ -131,6 +131,7 @@ const init = () => {
 
   elements.posts.addEventListener('click', (e) => {
         const { id } = e.target.dataset;
+        console.log(id)
         if (id && !state.uiState.visitedIds.includes(id)) {
           watchedState.uiState.visitedIds.push(id);
   }
