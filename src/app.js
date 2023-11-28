@@ -7,6 +7,18 @@ import ru from './locales/ru.js';
 import parse from './parser.js';
 import render from './view.js';
 
+const fillElementsWithText = (elements, i18nT) => {
+  const {
+    header, lead, urlLabel, button, modal,
+  } = elements;
+  header.textContent = i18nT('header');
+  lead.textContent = i18nT('lead');
+  urlLabel.textContent = i18nT('urlLabel');
+  button.textContent = i18nT('button');
+  modal.primary.textContent = i18nT('modal.primary');
+  modal.secondary.textContent = i18nT('modal.secondary');
+};
+
 const elements = {
   form: document.querySelector('.rss-form'),
   feedback: document.querySelector('.feedback'),
@@ -25,18 +37,6 @@ const elements = {
     secondary: document.querySelector('.close-modal'),
     footer: document.querySelector('.modal-footer'),
   },
-};
-
-const fillElementsWithText = (elements, i18nT) => {
-  const { 
-    header, lead, urlLabel, button, modal 
-  } = elements;
-  header.textContent = i18nT('header');
-  lead.textContent = i18nT('lead');
-  urlLabel.textContent = i18nT('urlLabel');
-  button.textContent = i18nT('button');
-  modal.primary.textContent = i18nT('modal.primary');
-  modal.secondary.textContent = i18nT('modal.secondary');
 };
 
 const getAllOriginsURL = (url) => {
