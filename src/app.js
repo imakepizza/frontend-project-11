@@ -14,13 +14,27 @@ const elements = {
   button: document.querySelector('button[type="submit"]'),
   feeds: document.querySelector('.feeds'),
   posts: document.querySelector('.posts'),
+  header: document.querySelector('.header'),
+  lead: document.querySelector('.lead'),
+  urlLabel: document.querySelector('label[for="url-input"]'),
   modal: {
     container: document.querySelector('.modal'),
     title: document.querySelector('.modal-title'),
     body: document.querySelector('.modal-body'),
-    button: document.querySelector('.full-article'),
+    primary: document.querySelector('.full-article'),
+    secondary: document.querySelector('.close-modal'),
     footer: document.querySelector('.modal-footer'),
   },
+};
+
+const fillElementsWithText = (elements, i18nT) => {
+  const { header, lead, urlLabel, button, modal } = elements;
+  header.textContent = i18nT('header');
+  lead.textContent = i18nT('lead');
+  urlLabel.textContent = i18nT('urlLabel');
+  button.textContent = i18nT('button');
+  modal.primary.textContent = i18nT('primary');
+  modal.secondary.textContent = i18nT('secondary');
 };
 
 const getAllOriginsURL = (url) => {
@@ -98,6 +112,8 @@ const init = () => {
         mixed: { notOneOf: 'existingFeed' },
         string: { url: 'invalidLink', required: 'emptyForm' },
       });
+
+      fillElementsWithText(elements, i18nT);
 
       const watchedState = onChange(state, render(elements, state, i18nT));
 

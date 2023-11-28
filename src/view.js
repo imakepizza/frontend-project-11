@@ -101,7 +101,7 @@ const renderModal = (elements, state, modalId) => {
 
   elements.modal.title.textContent = title;
   elements.modal.body.textContent = description;
-  elements.modal.button.href = link;
+  elements.modal.primary.href = link;
 };
 
 const handleFillingForm = (elements) => {
