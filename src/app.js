@@ -33,8 +33,8 @@ const fillElementsWithText = (elements, i18nT) => {
   lead.textContent = i18nT('lead');
   urlLabel.textContent = i18nT('urlLabel');
   button.textContent = i18nT('button');
-  modal.primary.textContent = i18nT('primary');
-  modal.secondary.textContent = i18nT('secondary');
+  modal.primary.textContent = i18nT('modal.primary');
+  modal.secondary.textContent = i18nT('modal.secondary');
 };
 
 const getAllOriginsURL = (url) => {
