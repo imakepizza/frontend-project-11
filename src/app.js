@@ -28,7 +28,9 @@ const elements = {
 };
 
 const fillElementsWithText = (elements, i18nT) => {
-  const { header, lead, urlLabel, button, modal } = elements;
+  const { 
+    header, lead, urlLabel, button, modal 
+  } = elements;
   header.textContent = i18nT('header');
   lead.textContent = i18nT('lead');
   urlLabel.textContent = i18nT('urlLabel');
